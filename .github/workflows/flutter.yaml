@@ -1,0 +1,37 @@
+name: Flutter CI
+on:
+  push:
+    branches: [main]
+jobs:
+  tests: 
+    name: Analyze flutter test
+    runs-on: ubuntu_latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Flutter install
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.2'
+          channel: stable
+          cache: true
+
+      - name: Flutter dependencies
+        run: flutter pub get
+
+      - name: Analyze project
+        run: flutter analyze
+        
+      - name: Flutter test
+        run: flutter test
+
+      - name: Android appBundle
+        run: flutter build appbundle --release
+
+      - name: Upload uppBundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
