@@ -5,7 +5,7 @@ on:
 jobs:
   tests: 
     name: Analyze flutter test
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
