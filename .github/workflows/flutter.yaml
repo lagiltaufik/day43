@@ -31,13 +31,19 @@ jobs:
         run: flutter build apk --debug
 
       - name: Build release APK
-        run: flutter build apk --release
+        run: flutter build apk --release --build-number=${{github.run_number}}
+
+      - name: Build DEV APK
+        run: flutter build apk --flavor dev --dev --debug --build-number=${{github.run_number}}
+
+      - name: Build PROD APK
+        run: flutter build apk --flavor prod --release --build-number=${{github.run_number}}
 
       - name: Android appBundle
         run: flutter build appbundle --release
 
-      - name: Upload uppBundle artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: all-apks
+          path: build/app/outputs/flutter-apk/*.apk
