@@ -27,12 +27,6 @@ jobs:
       - name: Flutter test
         run: flutter test
 
-      - name: Build dubug APK
-        run: flutter build apk --debug
-
-      - name: Build release APK
-        run: flutter build apk --release --build-number=${{github.run_number}}
-
       - name: Build DEV APK
         run: flutter build apk --flavor dev --debug --build-number=${{github.run_number}}
 
